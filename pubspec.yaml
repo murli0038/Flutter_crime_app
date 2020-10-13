@@ -37,7 +37,7 @@ dependencies:
   giffy_dialog: ^1.8.0
   audioplayers: ^0.16.1
   simple_timer: ^1.0.1
-  folding_cell: "^1.0.0"
+  folding_cell: ^1.0.0
   flutter_slider_drawer: ^1.0.3
 
 dev_dependencies:
