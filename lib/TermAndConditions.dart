@@ -20,6 +20,9 @@ class _TermAndConditionPageState extends State<TermAndConditionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Shader linearGradient = LinearGradient(
+      colors: <Color>[Colors.orange,Colors.green],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 400.0, 700.0));
     bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -164,6 +167,7 @@ class _TermAndConditionPageState extends State<TermAndConditionPage> {
                               child: Column(
 // crossAxisAlignment: CrossAxisAlignment.start,
 // mainAxisSize: MainAxisSize.min,
+
                                 children: <Widget>[
                                   SizedBox(
                                     height: 15.0,
@@ -201,14 +205,50 @@ class _TermAndConditionPageState extends State<TermAndConditionPage> {
                                                 context: context,
                                                 isScrollControlled: true,
                                                 builder: (context) => FractionallySizedBox(
-                                                  heightFactor: 0.9,
+                                                  heightFactor: 0.7,
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal:20 ),
                                                     child: Column(
 // crossAxisAlignment: CrossAxisAlignment.start,
 // mainAxisSize: MainAxisSize.min,
                                                       children: <Widget>[
-//TODO code lakahvano che
+                                                      SizedBox(height: 20,),
+                                                      Text("Your mobile number is required for your contact tracing.",
+                                                        style: TextStyle(
+                                                            fontSize: 25,
+                                                          fontWeight: FontWeight.bold
+                                                        ),
+                                                      ),
+                                                        SizedBox(height: 20,),
+                                                        Text("Say, you are in trouble you need urgent help of police , with help button on one tap police will be there to help you.",
+                                                          style: TextStyle(
+                                                            fontWeight: FontWeight.w400,
+                                                            fontSize: 15
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10,),
+                                                        Text("The government of india will trace you through your mobile number to reach you in minimum time.",
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w400,
+                                                              fontSize: 15
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10,),
+                                                        Text("A notification will then be sent to all such officer who are in charge.",
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w400,
+                                                              fontSize: 15
+                                                          ),
+                                                        ),
+                                                        Spacer(),
+                                                        Image.asset("assets/images/indialogo.png",height: 100,),
+                                                        Text("Govt. Of India",
+                                                          style: TextStyle(
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 25,
+                                                            foreground: Paint()..shader = linearGradient)
+                                                          ),
+                                                        SizedBox(height: 10,)
                                                       ],
                                                     ),
                                                   ),

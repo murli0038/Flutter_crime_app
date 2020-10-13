@@ -147,6 +147,12 @@ class _TpFormState extends State<TpForm> {
 
                         SizedBox(height: 10,),
                         TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
                           cursorColor: Theme.of(context).cursorColor,
                           // initialValue: 'Gandhinagar',
                           maxLength: 20,
@@ -349,8 +355,7 @@ class _TpFormState extends State<TpForm> {
                               onPressed: (){
                                 showDialog(context: context,builder: (_) => AssetGiffyDialog(
                                   image: Image.asset("assets/images/animation_500_kg3jlhtq.gif"),
-                                  title: Text("Your Tip is send \nsuccessfully.",textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  description:Text('This is a granny eating chocolate dialog box',textAlign: TextAlign.center,),
+                                  title: Text("Your Tip is send \nsuccessfully.",textAlign: TextAlign.center,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                                   entryAnimation: EntryAnimation.BOTTOM,
                                   onOkButtonPressed: (){
                                     Navigator.pop(context);

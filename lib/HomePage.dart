@@ -1,3 +1,4 @@
+import 'package:crime_app/MyComplaints.dart';
 import 'package:crime_app/homenachokra.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,24 +33,43 @@ class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixi
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+          drawer: DrawerApp(),
           appBar: AppBar(
             automaticallyImplyLeading: false,
+            centerTitle: true,
             backgroundColor: Colors.white,
-            title: Text("Crime App",style: TextStyle(color: Colors.black),),
+            actions: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      DrawerApp();
+                    },
+                    child: Icon(
+                      Icons.settings,
+                      size: 26.0,
+                      color: Colors.black,
+                    ),
+                  )
+              ),
+            ],
+
+
+            title: Text("Reduce Crime App",style: TextStyle(color: Colors.black),),
             elevation: 0,
             bottom: TabBar(
                 unselectedLabelColor: Colors.redAccent,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [Colors.blue[100], Colors.blue[100]]),
+                        colors: [Colors.orange[100],Colors.blue[500]]),
                     borderRadius: BorderRadius.circular(50),
                     color: Colors.redAccent),
                 tabs: [
                   Tab(
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text("HOME",style: TextStyle(fontSize: 15),),
+                      child: Text("HOME",style: TextStyle(fontSize: 15,color: Colors.black),),
                     ),
                   ),
                   Tab(
@@ -68,7 +88,7 @@ class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixi
           ),
           body: TabBarView(children: [
             HomeFirstChild(),
-            Icon(Icons.movie),
+            MyComplaints(),
             // Icon(Icons.games),
           ]),
         )
@@ -171,5 +191,42 @@ class MyClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
+  }
+}
+
+class DrawerApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: const <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text(
+              'Drawer Header',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.message),
+            title: Text('Messages'),
+          ),
+          ListTile(
+            leading: Icon(Icons.account_circle),
+            title: Text('Profile'),
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+          ),
+        ],
+      ),
+    );
   }
 }

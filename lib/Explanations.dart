@@ -16,8 +16,6 @@ class Explanation extends StatefulWidget {
   final String nicheNuText;
 
 
-
-
   Explanation({this.colour, this.button, this.animationURL, this.uperNuText, this.nicheNuText});
 
   @override
@@ -36,24 +34,30 @@ class _ExplanationState extends State<Explanation> {
   String appInfoUpernuEnglish = "Each one of us has the power to save nation !!";
   String appInfoNichenuEnglish = "Would you like to prevent the crime rates and to make safe enviroument for nation ??";
 
-  getSharedPref() async
+  changeLanguage() async
   {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    gujarati = pref.getBool('Gujarati');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('boolValue', true);
   }
 
-  setGujarati() async
+  getLanguage() async
   {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool('Gujarati', true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    gujarati = prefs.getBool('boolValue') ;
   }
 
-  language()
+  getGujarati() async
   {
-    if (gujarati == true)
+    if(gujarati == true)
     {
       uper = appInfoUpernuGujrati;
       niche = appInfoNichenuGujrati;
+    }
+    else
+    {
+      uper = appInfoUpernuEnglish;
+      niche = appInfoNichenuEnglish;
     }
   }
 
@@ -79,18 +83,15 @@ class _ExplanationState extends State<Explanation> {
                     children: [
                       FlatButton(onPressed: (){
                         setState(() {
-                          uper = appInfoUpernuEnglish;
-                          niche = appInfoNichenuEnglish;
+
                         });
                         Navigator.pop(context);
                       }, child: Text("English")),
                       FlatButton(onPressed: (){
                         setState(() {
-                          uper = appInfoUpernuGujrati;
-                          niche = appInfoNichenuGujrati;
-                          // gujarati = true;
-                          setGujarati();
-
+                          changeLanguage();
+                          getLanguage();
+                          getGujarati();
                         });
                         Navigator.pop(context);
                       }, child: Text("Gujarati")),
@@ -114,15 +115,17 @@ class _ExplanationState extends State<Explanation> {
     // TODO: implement initState
     super.initState();
 
-    getSharedPref();
-    language();
     // alertView();
+    // setState(() {
+    //
+    //   uper = widget.uperNuText;
+    //   niche = widget.nicheNuText;
+    //   uper = appInfoUpernuEnglish;
+    //   niche = appInfoNichenuEnglish;
+    // });
     setState(() {
-
-      uper = widget.uperNuText;
-      niche = widget.nicheNuText;
-      uper = appInfoUpernuEnglish;
-      niche = appInfoNichenuEnglish;
+      getGujarati();
+      getLanguage();
     });
   }
 

@@ -1,5 +1,8 @@
+import 'package:crime_app/HomePage.dart';
 import 'package:crime_app/TermAndConditions.dart';
+import 'package:crime_app/sidevaduPage.dart';
 import 'package:dot_pagination_swiper/dot_pagination_swiper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
@@ -7,8 +10,18 @@ import 'package:crime_app/Explanations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(EasyLocalization(path: "assets/resources",
+  saveLocale: true,
+  supportedLocales: [
+    Locale('en', 'US'),
+    Locale('gu', 'IN'),
+    Locale('hi', 'IN'),
+
+  ],
+  child: MyApp()));
 }
+
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -19,6 +32,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       home: HomeApp()
     );
@@ -26,12 +42,6 @@ class _MyAppState extends State<MyApp> {
 }
 
 class HomeApp extends StatefulWidget {
-
-
-
-
-
-
 
 
   @override
@@ -48,41 +58,46 @@ class _HomeAppState extends State<HomeApp> {
   String appInfoUpernuGujrati = "આપણામાંના દરેકમાં રાષ્ટ્રને બચાવવાની શક્તિ છે";
   String appInfoNichenuGujrati = "શું તમે ગુના દરને અટકાવવા અને દેશ માટે સલામત પર્યાવરણ બનાવવા માંગો છો ??";
 
-  String appInfoUpernuEnglish = "Each one of us has the power to save nation !!";
-  String appInfoNichenuEnglish = "Would you like to prevent the crime rates and to make safe enviroument for nation ??";
+  String appInfoUpernuEnglish = "first".tr().toString();
+  String appInfoNichenuEnglish = "second".tr().toString();
 
-  getSharedPref() async
-  {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    gujarati = pref.getBool('Gujarati');
-    print(gujarati);
-  }
-
-  setGujarati() async
-  {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool('Gujarati', true);
-  }
-
-  language()
-  {
-    if (gujarati == true)
-    {
-      uper = appInfoUpernuGujrati;
-      niche = appInfoNichenuGujrati;
-    }
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getSharedPref();
-    language();
     alertView();
     setState(() {
-
+      getGujarati();
+      getLanguage();
     });
+  }
+
+  changeLanguage() async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('boolValue', true);
+  }
+
+  getLanguage() async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    gujarati = prefs.getBool('boolValue') ;
+  }
+
+  getGujarati() async
+  {
+    if(gujarati == true)
+    {
+      uper = appInfoUpernuGujrati;
+      niche = appInfoNichenuGujrati;
+    }
+    else
+    {
+      uper = appInfoUpernuEnglish;
+      niche = appInfoNichenuEnglish;
+    }
   }
 
 
@@ -108,16 +123,15 @@ class _HomeAppState extends State<HomeApp> {
                     children: [
                       FlatButton(onPressed: (){
                         setState(() {
-                          uper = appInfoUpernuEnglish;
-                          niche = appInfoNichenuEnglish;
+
                         });
                         Navigator.pop(context);
                       }, child: Text("English")),
                       FlatButton(onPressed: (){
                         setState(() {
-                          uper = appInfoUpernuGujrati;
-                          niche = appInfoNichenuGujrati;
-                          setGujarati();
+                          changeLanguage();
+                          getLanguage();
+                          getGujarati();
                         });
                         Navigator.pop(context);
                       }, child: Text("Gujarati")),
